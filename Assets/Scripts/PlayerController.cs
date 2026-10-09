@@ -46,16 +46,19 @@ public class PlayerController : MonoBehaviour
         {
             if (_lambert) _playerMat.SetFloat("_Lambert", 0);
             else _playerMat.SetFloat("_Lambert", 1);
+            _lambert = !_lambert;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (_ambient) _playerMat.SetFloat("_Ambient", 0);
             else _playerMat.SetFloat("_Ambient", 1);
+            _ambient = !_ambient;
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (_specular) _playerMat.SetFloat("_Specular", 0);
             else _playerMat.SetFloat("_Specular", 1);
+            _specular = !_specular;
         }
     }
 
