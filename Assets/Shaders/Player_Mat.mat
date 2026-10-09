@@ -59,10 +59,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Ambient: 0
+    - _Lambert: 0
     - _PLAYERHIT: 0
     - _PlayerHit: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Specular: 1
     m_Colors:
     - _BaseColour: {r: 0.14150926, g: 0.22135046, b: 1, a: 0}
     - _HitColour: {r: 1, g: 0.20188677, b: 0.20188677, a: 0}
