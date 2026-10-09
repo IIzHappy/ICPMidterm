@@ -8,7 +8,13 @@ public class PlayerController : MonoBehaviour
 
     public float _moveSpeed = 8;
     public float _jumpHeight = 10;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public Transform _spawn;
+
+    bool _paused = false;
+    public float _deathPause = 0.8f;
+    float _pauseTimer = 0;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -16,6 +22,20 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        if (_paused)
+        {
+            _pauseTimer += Time.deltaTime;
+            if (_pauseTimer >= _deathPause)
+            {
+                _paused = false;
+                _playerMat.SetFloat("_PlayerHit", 0);
+            }
+        }
+        else Move();
+    }
+
+    void Move()
     {
         float moveX = 0;
         if (Input.GetKey(KeyCode.A))
@@ -29,7 +49,7 @@ public class PlayerController : MonoBehaviour
         //_rb.linearVelocity.x = moveX;
         _rb.linearVelocity = new Vector3(moveX * _moveSpeed, _rb.linearVelocity.y, 0);
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             _rb.AddForce(Vector3.up * _jumpHeight, ForceMode.Impulse);
         }
@@ -39,7 +59,10 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "Water")
         {
-            _playerMat.SetFloat("PlayerHit", 1);
+            _playerMat.SetFloat("_PlayerHit", 1);
+            gameObject.transform.position = _spawn.transform.position;
+            _pauseTimer = 0;
+            _paused = true;
         }
     }
 }
